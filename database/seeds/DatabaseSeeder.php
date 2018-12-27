@@ -18,7 +18,38 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         DB::transaction(function () {
-            // Make users
+            // Add rights
+            $basicR = new Right();
+            $basicR->name = 'basic';
+            $basicR->save();
+
+            $viewBookingsR = new Right();
+            $viewBookingsR->name = 'view_bookings';
+            $viewBookingsR->save();
+
+            $editR = new Right();
+            $editR->name = 'edit_content';
+            $editR->save();
+
+            $adminR = new Right();
+            $adminR->name = 'add_admins';
+
+            // Add realty types
+            $residentialRT = new RealtyType();
+            $residentialRT->name = 'residential';
+            $residentialRT->save();
+
+            $countryRT = new RealtyType();
+            $countryRT->name = 'country';
+            $countryRT->save();
+
+            $comRT = new RealtyType();
+            $comRT->name = 'commercial';
+            $comRT->save();
+
+            // Add static content
+
+            // Add users
             $admin = new User();
             $admin->name = 'Максим Петров';
             $admin->password = Hash::make('qwerty');
@@ -43,7 +74,10 @@ class DatabaseSeeder extends Seeder
             $user3->email = 'user3@gmail.com';
             $user3->save();
 
-            //
+            // Assign rights
+            // Add news
+            // Assign images
+            // Add bookings
         });
     }
 }

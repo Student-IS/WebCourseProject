@@ -27,4 +27,23 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function rights()
+    {
+        return $this->belongsToMany('App\Right','users__rights','user_id','right_id');
+    }
+
+    /**
+     * Check for having the rights
+     * @param $rights
+     * @return bool
+     */
+    public function hasRights($rights)
+    {
+        if (!is_array($rights))
+        {
+            $rights = [$rights];
+        }
+        return ($this->rights()->where('name', $rights)->count() > 0);
+    }
 }
