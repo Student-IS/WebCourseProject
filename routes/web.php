@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('home', function() { return redirect()->route('home'); });
-
 // Admin part
 Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
@@ -24,6 +21,13 @@ Route::prefix('admin')->group(function () {
 });
 
 // User part
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('home', function() { return redirect()->route('home'); });
+Route::get('news', 'NewsController@index')->name('news');
+
+Route::get('realty', 'RealtyController@index')->name('realty');
+Route::get('realty/booking', 'BookingController@form')->name('realty.booking');
+
 Route::prefix('about')->group(function () {
     Route::get('/', 'AboutController@index')->name('about');
     Route::get('history', 'AboutController@history')->name('about.history');
@@ -34,5 +38,4 @@ Route::prefix('about')->group(function () {
 Route::get('location', function() { return view('user.location'); })->name('location');
 Route::get('sitemap', function() { return view('user.sitemap'); })->name('sitemap');
 
-Route::get('realty', 'RealtyController@index')->name('realty');
-Route::get('realty/booking', 'BookingController@form')->name('realty.booking');
+?>
