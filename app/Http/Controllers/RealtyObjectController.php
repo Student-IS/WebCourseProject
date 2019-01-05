@@ -35,7 +35,21 @@ class RealtyObjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = new RealtyObject;
+        $r->name = $request->name;
+        $r->address = $request->address;
+        $r->cost = (double)$request->cost;
+        $r->type_id = (int)$request->type_id;
+        $r->area_total = (double)$request->area_total;
+        $r->area_residential = (double)$request->area_residential;
+        $r->area_kitchen = (double)$request->area_kitchen;
+        $r->floors = (int)$request->floors;
+        $r->floor = (int)$request->floor;
+        $r->ru_description = $request->ru_descritpion;
+        $r->en_description = $request->en_description;
+        $r->phone = $request->phone;
+        $r->email = $request->email;
+        $r->save();
     }
 
     /**
@@ -80,6 +94,6 @@ class RealtyObjectController extends Controller
      */
     public function destroy(RealtyObject $realtyObject)
     {
-        //
+        $realtyObject->delete();
     }
 }

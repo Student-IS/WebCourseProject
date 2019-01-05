@@ -9,9 +9,8 @@
 </head>
 <body>
 <header>
-    <div class="container-fluid">
-        Шапка
-        <nav class="navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid justify-content-center">
+        <nav class="navbar-expand-lg bg-light">
             <a href="/" class="navbar-brand"><img name="Логотип" alt="Логотип" height=100 src="/img/logo-big.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -49,15 +48,19 @@
         </nav>
     </div>
 </header>
-<main class="row bg-dark">
-    <section class="col-lg-8 bg-light">
-        Основная секция
+<main class="row justify-content-center bg-secondary">
+    <section class="col-7 bg-light">
+        <p>Основная секция</p>
         @yield('content')
     </section>
 </main>
 <footer>
-    <div class="container-fluid">
-        Подвал
+    <div class="container-fluid no-gutters">
+        <section class="row justify-content-center bg-dark">
+            <div class="col-7 justify-content-center">
+                <p>Подвал сайта</p>
+            </div>
+        </section>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
