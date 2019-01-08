@@ -1,0 +1,35 @@
+/*
+* Custom styles of the app
+* WebCourseProject
+* -wcp postfix means "WebCourseProject"
+ */
+html, body {
+    height: 100%;
+}
+
+.container-wcp {
+    flex-direction: column;
+    height: 100%;
+}
+
+.header-wcp {
+    height: 100px;
+}
+
+.footer-wcp {
+    height: 55px;
+}
+
+.w-960-1200 {
+    min-width: 960px;
+    max-width: 1200px;
+}
+
+.content-place {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    primary-color: #0956C8;
+    secondary-color: #168EDF;
+}
+
