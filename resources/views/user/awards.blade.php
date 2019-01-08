@@ -1,4 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <p>Награды</p>
+    <h3>Награды</h3>
+    <p>{{$text}}</p>
 @endsection

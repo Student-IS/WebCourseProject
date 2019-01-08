@@ -4,67 +4,81 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/app.custom.css">
     <title>Продажа недвижимости &mdash; Курсовой проект</title>
 </head>
 <body>
-<header>
-    <div class="container-fluid justify-content-center">
-        <nav class="navbar-expand-lg bg-light">
-            <a href="/" class="navbar-brand"><img name="Логотип" alt="Логотип" height=100 src="/img/logo-big.png"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">Главная</a>
+<div class="container-wcp d-flex">
+    <header class="row no-gutters justify-content-center">
+        <div class="header-wcp container w-960-1200">
+            <nav class="navbar navbar-expand justify-content-center fixed-top navbar-dark bg-primary">
+                <a class="navbar-brand" href="/">
+                    <img alt="Logo" title="Logo" src="/img/logo-big.png" style="height: 90px;">
+                </a>
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a href="news" class="nav-link">Новости</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="realty" class="nav-link">Недвижимость</a>
+                        <a class="nav-link" href="/news">Новости</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="about" class="nav-link dropdown-toggle" id="dropdownAboutLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            О компании
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownAboutLink">
-                            <a href="about/history" class="dropdown-item">Наша история</a>
-                            <a href="about/service" class="dropdown-item">Услуги</a>
-                            <a href="about/awards" class="dropdown-item">Награды</a>
-                            <a href="about/reviews" class="dropdown-item">Отзывы</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dd-realty" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Недвижимость</a>
+                        <div class="dropdown-menu" aria-labelledby="dd-realty">
+                            <a class="dropdown-item" href="/realty/residential">Жилая</a>
+                            <a class="dropdown-item" href="/realty/country">Загородная</a>
+                            <a class="dropdown-item" href="/realty/commercial">Коммерческая</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dd-about" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">О нас</a>
+                        <div class="dropdown-menu" aria-labelledby="dd-about">
+                            <a class="dropdown-item" href="/about/history">История</a>
+                            <a class="dropdown-item" href="/about/service">Услуги</a>
+                            <a class="dropdown-item" href="/about/awards">Награды</a>
+                            <a class="dropdown-item" href="/about/reviews">Отзывы</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="location" class="nav-link">Схема проезда</a>
+                        <a class="nav-link" href="/location">Схема проезда</a>
                     </li>
                     <li class="nav-item">
-                        <a href="sitemap" class="nav-link">Карта сайта</a>
+                        <a class="nav-link" href="/sitemap">Карта сайта</a>
                     </li>
                 </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="flex-grow-1 row no-gutters justify-content-center bg-secondary">
+        <div class="col w-960-1200 content-place bg-light">
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac fermentum nunc, sit amet convallis turpis. Curabitur blandit sem elementum, molestie neque id, consequat erat. Nulla tempor nunc id tincidunt posuere. Phasellus a dictum massa. Phasellus ac consequat mauris, a tempor odio. Curabitur urna neque, consectetur ultricies erat at, feugiat laoreet sapien. In finibus commodo congue. Cras ut hendrerit mauris, non posuere magna. Morbi nec ligula in sapien eleifend blandit ut vel augue. Sed eu neque sed justo pellentesque rutrum.
+                Praesent metus mauris, volutpat sed lectus eget, dignissim feugiat ante. Donec facilisis pharetra quam id elementum. Morbi vitae nisl pellentesque, aliquet neque id, auctor magna. Vestibulum elit nibh, pulvinar mattis lorem efficitur, egestas suscipit urna. Ut consectetur diam metus, id facilisis purus scelerisque at. Mauris mollis elementum hendrerit. Donec eu orci luctus, tristique metus nec, interdum nisl. Pellentesque sapien ante, auctor ac scelerisque vitae, vestibulum sit amet ipsum. Praesent maximus quam eleifend tincidunt placerat. Nullam tincidunt, enim at tincidunt euismod, est leo eleifend nibh, in ornare elit leo sed urna. Sed enim libero, rhoncus eget metus eu, fermentum finibus ligula. Vestibulum tortor libero, fringilla et hendrerit rutrum, sollicitudin et urna. Maecenas aliquam, leo ac mollis iaculis, dolor sem mattis velit, ut suscipit lorem neque vel nibh. Aenean tincidunt, arcu et volutpat convallis, nibh dui luctus quam, at elementum metus ipsum non metus. Cras laoreet mi ipsum.
+                Duis nec neque in enim imperdiet fermentum at a nibh. Vestibulum blandit quam purus, non aliquam mi gravida sed. Sed et consectetur enim. Vivamus in mi metus. Etiam volutpat mi vel odio feugiat, eu eleifend sem tempus. Nulla vel arcu eget risus placerat ullamcorper sit amet quis erat. Praesent in tincidunt dui. Sed viverra pulvinar orci, non volutpat magna. Maecenas a imperdiet tortor, id facilisis metus. Nullam ac ultrices lorem. Phasellus sollicitudin semper egestas. Curabitur magna diam, efficitur sit amet orci a, varius blandit massa. Duis fringilla feugiat ultricies. Nulla ac elit velit. Morbi semper aliquet scelerisque.
+                Pellentesque vitae justo ac ante varius pellentesque at vel sem. Morbi interdum, odio at luctus interdum, urna lectus accumsan nunc, vitae posuere magna felis sit amet purus. Mauris massa nisi, commodo sit amet euismod at, bibendum mattis dui. Sed placerat gravida dolor, sed interdum nulla lacinia in. Donec at justo vitae mauris volutpat molestie. Nullam ante erat, interdum quis tincidunt nec, venenatis at orci. Nulla sagittis aliquam porta. Morbi faucibus justo non consequat euismod. In semper nisi at ex varius, nec aliquet urna rutrum. Nullam at mauris mauris.
+                Vestibulum eu nibh suscipit, tincidunt libero in, tristique metus. Maecenas elementum consequat vehicula. Sed malesuada ante mauris, sodales euismod felis pretium euismod. Praesent vitae congue elit, sit amet dapibus quam. Etiam ultricies interdum mattis. Pellentesque et hendrerit nisi. Nunc est risus, commodo vel blandit sollicitudin, egestas nec libero. Sed sodales interdum ornare. Vivamus diam nisl, ornare sed auctor non, varius eget ligula
+            </p>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac fermentum nunc, sit amet convallis turpis. Curabitur blandit sem elementum, molestie neque id, consequat erat. Nulla tempor nunc id tincidunt posuere. Phasellus a dictum massa. Phasellus ac consequat mauris, a tempor odio. Curabitur urna neque, consectetur ultricies erat at, feugiat laoreet sapien. In finibus commodo congue. Cras ut hendrerit mauris, non posuere magna. Morbi nec ligula in sapien eleifend blandit ut vel augue. Sed eu neque sed justo pellentesque rutrum.
+                Praesent metus mauris, volutpat sed lectus eget, dignissim feugiat ante. Donec facilisis pharetra quam id elementum. Morbi vitae nisl pellentesque, aliquet neque id, auctor magna. Vestibulum elit nibh, pulvinar mattis lorem efficitur, egestas suscipit urna. Ut consectetur diam metus, id facilisis purus scelerisque at. Mauris mollis elementum hendrerit. Donec eu orci luctus, tristique metus nec, interdum nisl. Pellentesque sapien ante, auctor ac scelerisque vitae, vestibulum sit amet ipsum. Praesent maximus quam eleifend tincidunt placerat. Nullam tincidunt, enim at tincidunt euismod, est leo eleifend nibh, in ornare elit leo sed urna. Sed enim libero, rhoncus eget metus eu, fermentum finibus ligula. Vestibulum tortor libero, fringilla et hendrerit rutrum, sollicitudin et urna. Maecenas aliquam, leo ac mollis iaculis, dolor sem mattis velit, ut suscipit lorem neque vel nibh. Aenean tincidunt, arcu et volutpat convallis, nibh dui luctus quam, at elementum metus ipsum non metus. Cras laoreet mi ipsum.
+                Duis nec neque in enim imperdiet fermentum at a nibh. Vestibulum blandit quam purus, non aliquam mi gravida sed. Sed et consectetur enim. Vivamus in mi metus. Etiam volutpat mi vel odio feugiat, eu eleifend sem tempus. Nulla vel arcu eget risus placerat ullamcorper sit amet quis erat. Praesent in tincidunt dui. Sed viverra pulvinar orci, non volutpat magna. Maecenas a imperdiet tortor, id facilisis metus. Nullam ac ultrices lorem. Phasellus sollicitudin semper egestas. Curabitur magna diam, efficitur sit amet orci a, varius blandit massa. Duis fringilla feugiat ultricies. Nulla ac elit velit. Morbi semper aliquet scelerisque.
+                Pellentesque vitae justo ac ante varius pellentesque at vel sem. Morbi interdum, odio at luctus interdum, urna lectus accumsan nunc, vitae posuere magna felis sit amet purus. Mauris massa nisi, commodo sit amet euismod at, bibendum mattis dui. Sed placerat gravida dolor, sed interdum nulla lacinia in. Donec at justo vitae mauris volutpat molestie. Nullam ante erat, interdum quis tincidunt nec, venenatis at orci. Nulla sagittis aliquam porta. Morbi faucibus justo non consequat euismod. In semper nisi at ex varius, nec aliquet urna rutrum. Nullam at mauris mauris.
+                Vestibulum eu nibh suscipit, tincidunt libero in, tristique metus. Maecenas elementum consequat vehicula. Sed malesuada ante mauris, sodales euismod felis pretium euismod. Praesent vitae congue elit, sit amet dapibus quam. Etiam ultricies interdum mattis. Pellentesque et hendrerit nisi. Nunc est risus, commodo vel blandit sollicitudin, egestas nec libero. Sed sodales interdum ornare. Vivamus diam nisl, ornare sed auctor non, varius eget ligula
+            </p>
+        </div>
+    </main>
+    <footer class="bg-dark">
+        <div class="row no-gutters justify-content-center">
+            <div class="footer-wcp col w-960-1200">
+                <div class="row no-gutters">
+                    <div class="col"><p class="text-white">2018-2019 &copy; Student IS</p></div>
+                    <div class="col"><a href="https://github.com/Student-IS/WebCourseProject" class="text-white">Проект на GitHub</a></div>
+                </div>
             </div>
-        </nav>
-    </div>
-</header>
-<main class="row justify-content-center bg-secondary">
-    <section class="col-7 bg-light">
-        <p>Основная секция</p>
-        @yield('content')
-    </section>
-</main>
-<footer>
-    <div class="container-fluid no-gutters">
-        <section class="row justify-content-center bg-dark">
-            <div class="col-7 justify-content-center">
-                <p>Подвал сайта</p>
-            </div>
-        </section>
-    </div>
-</footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        </div>
+    </footer>
+</div>
+<script src="/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
