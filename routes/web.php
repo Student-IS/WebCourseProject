@@ -25,7 +25,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('home', function() { return redirect()->route('home'); });
 Route::get('news', 'NewsController@index')->name('news');
 
-Route::get('realty', 'RealtyController@index')->name('realty');
+Route::get('realty', 'RealtyObjectController@index')->name('realty');
 Route::get('realty/booking', 'BookingController@form')->name('realty.booking');
 
 Route::prefix('about')->group(function () {
