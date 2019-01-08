@@ -14,7 +14,14 @@ class RealtyObjectController extends Controller
      */
     public function index()
     {
-        //
+        $data = RealtyObject::orderBy('created_at','desc')->get();
+        return view('user.realty',['objects' => $data]);
+    }
+
+    public function indexOfType(string $type)
+    {
+        $data = RealtyObject::where('type_id','=','1')->orderBy('created_at','desc')->get();
+        return view('user.realty',['objects' => $data, 'type' => $type]);
     }
 
     /**

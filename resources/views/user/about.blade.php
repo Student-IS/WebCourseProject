@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <ul>
-        <li><a href="about/history">Наша история</a></li>
-        <li><a href="about/service">Услуги</a></li>
-        <li><a href="about/awards">Награды</a></li>
-        <li><a href="about/reviews">Отзывы</a></li>
+    <h3>О компании</h3>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/about/history">Наша история</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/service">Услуги</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/awards">Награды</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/reviews">Отзывы</a></li>
     </ul>
 @endsection

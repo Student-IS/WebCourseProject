@@ -14,19 +14,27 @@
 // Admin part
 Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('news', 'NewsController@indexAdmin')->name('admin.news');
+    Route::get('news/{post}', 'NewsController@showAdmin')->name('admin.post');
+    Route::get('realty', 'RealtyObjectController@indexAdmin')->name('admin.realty');
+    Route::get('staticContent', 'StaticContentController@index')->name('admin.staticContent');
+    Route::get('booking', 'BookingController@index')->name('admin.booking');
     Route::get('users', 'UserController@index')->name('admin.users');
-    Route::get('realty', 'RealtyObjectController@admin')->name('admin.realty');
-    Route::get('content', 'AboutController@admin')->name('admin.content');
-    Route::get('bookings','BookingController@admin')->name('admin.bookings');
+    Route::get('users/{user}', 'UserController@showAdmin')->name('admin.profile');
 });
 
 // User part
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('home', function() { return redirect()->route('home'); });
+Route::get('home', 'HomeController@index');
 Route::get('news', 'NewsController@index')->name('news');
+Route::get('news/{post}', 'NewsController@show')->name('post');
 
-Route::get('realty', 'RealtyObjectController@index')->name('realty');
-Route::get('realty/booking', 'BookingController@form')->name('realty.booking');
+Route::prefix('realty')->group(function () {
+    Route::get('/', 'RealtyObjectController@index')->name('realty');
+    Route::get('{type}', 'RealtyObjectController@indexOfType')->name('realty.ofType');
+
+//    Route::get('booking', 'BookingController@form')->name('realty.booking');
+});
 
 Route::prefix('about')->group(function () {
     Route::get('/', 'AboutController@index')->name('about');
@@ -35,6 +43,7 @@ Route::prefix('about')->group(function () {
     Route::get('awards', 'AboutController@awards')->name('about.awards');
     Route::get('reviews', 'AboutController@reviews')->name('about.reviews');
 });
+
 Route::get('location', function() { return view('user.location'); })->name('location');
 Route::get('sitemap', function() { return view('user.sitemap'); })->name('sitemap');
 

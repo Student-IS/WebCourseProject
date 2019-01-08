@@ -14,7 +14,14 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news = News::latest()->orderBy('id','desc')->get();
+        return view('user.news', ['news' => $news]);
+    }
+
+    public function indexAdmin()
+    {
+        $news = News::latest()->orderBy('id','desc')->get();
+        return view('admin.news', ['news' => $news]);
     }
 
     /**
@@ -41,21 +48,26 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\News  $news
+     * @param  \App\News $post
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show(News $post)
     {
-        //
+        return view('user.post', ['post' => $post]);
+    }
+
+    public function showAdmin(News $post)
+    {
+        return view('admin.post', ['post' => $post]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\News  $news
+     * @param  \App\News  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(News $news)
+    public function edit(News $post)
     {
         //
     }
@@ -64,10 +76,10 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\News  $news
+     * @param  \App\News  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request, News $post)
     {
         //
     }
@@ -75,10 +87,10 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\News  $news
+     * @param  \App\News  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy(News $post)
     {
         //
     }
