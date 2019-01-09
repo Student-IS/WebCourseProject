@@ -8,7 +8,7 @@
         @endif
     </small>
     @isset($post->image)
-        <img src="{{$post->image}}" title="{{$post->ru_title}}" alt="{{$post->ru_title}}">
+        <img class="img-row h-360-480" src="{{$post->image}}" title="{{$post->ru_title}}" alt="{{$post->ru_title}}">
     @endisset
     <div>{{$post->ru_text}}</div>
     <hr>

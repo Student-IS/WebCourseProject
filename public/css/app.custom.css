@@ -33,11 +33,19 @@ html, body {
     padding: 20px 30px;
 }
 
-.content-place h3
-{
+.content-place h3 {
     text-align: center;
 }
 
+.h-360-480 {
+    min-height: 360px;
+    max-height: 480px;
+}
+
+.img-row {
+    display: block;
+    margin: 10px auto;
+}
 /*
 primary-color: #0956C8;
 secondary-color: #168EDF;

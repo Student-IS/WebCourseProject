@@ -14,13 +14,22 @@
 // Admin part
 Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
+
     Route::get('news', 'NewsController@indexAdmin')->name('admin.news');
-    Route::get('news/{post}', 'NewsController@showAdmin')->name('admin.post');
+    Route::get('news/{post}', 'NewsController@edit')->name('admin.news.show');
+    Route::put('news/{post}', 'NewsController@update')->name('admin.news.update');
+    Route::delete('news/{post}', 'NewsController@destroy')->name('admin.news.delete');
+
     Route::get('realty', 'RealtyObjectController@indexAdmin')->name('admin.realty');
+
     Route::get('staticContent', 'StaticContentController@index')->name('admin.staticContent');
+
     Route::get('booking', 'BookingController@index')->name('admin.booking');
+
     Route::get('users', 'UserController@index')->name('admin.users');
-    Route::get('users/{user}', 'UserController@showAdmin')->name('admin.profile');
+    Route::get('users/{user}', 'UserController@edit')->name('admin.users.show');
+    Route::put('users/{user}', 'UserController@update')->name('admin.users.update');
+    Route::delete('users/{user}', 'UserController@destroy')->name('admin.users.delete');
 });
 
 // User part

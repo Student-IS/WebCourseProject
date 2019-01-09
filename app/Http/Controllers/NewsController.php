@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 class NewsController extends Controller
 {
@@ -56,11 +57,6 @@ class NewsController extends Controller
         return view('user.post', ['post' => $post]);
     }
 
-    public function showAdmin(News $post)
-    {
-        return view('admin.post', ['post' => $post]);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -69,7 +65,7 @@ class NewsController extends Controller
      */
     public function edit(News $post)
     {
-        //
+        return view('admin.post', ['post' => $post]);
     }
 
     /**
@@ -81,7 +77,30 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $post)
     {
-        //
+        $post->ru_title = $request->title;
+        $post->ru_short = $request->short;
+        $post->ru_text = $request->text;
+
+        if ($request->hasFile('image'))
+        {
+            if($request->file('image')->isValid())
+            {
+                if (isset($post->image))
+                {
+                    $prev = new File($post->image);
+                    $prev->move('img/news/bak');
+                }
+                $request->image->store('img/news');
+            }
+        }
+
+        $post->en_title = $request->enTitle;
+        $post->en_short = $request->enShort;
+        $post->en_text = $request->enText;
+
+        $post->updated_at = now();
+        $post->save();
+        return view('admin.post', ['post' => $post, 'updated' => true]);
     }
 
     /**
@@ -92,6 +111,12 @@ class NewsController extends Controller
      */
     public function destroy(News $post)
     {
-        //
+        $id = $post->id;
+        $title = $post->title;
+        $datetime = $post->created_at;
+
+        $post->delete();
+        $news = News::latest()->orderBy('id','desc')->get();
+        return view('admin.news', ['news' => $news, 'deleted' => [$id, $title, $datetime]]);
     }
 }

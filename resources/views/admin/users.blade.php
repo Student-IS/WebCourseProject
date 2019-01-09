@@ -9,4 +9,12 @@
         @endforeach
         </tbody>
     </table>
+    @isset($deleted)
+        <div class="alert alert-info alert-dismissible" role="alert">
+            Профиль №{{$deleted[0]}} ({{$deleted[1]}}) был удалён
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endisset
 @endsection
