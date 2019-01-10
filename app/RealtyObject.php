@@ -17,7 +17,7 @@ class RealtyObject extends Model
 
     public function realtyImages()
     {
-        return $this->hasMany('App\RealtyImage','id','object_id');
+        return $this->hasMany('App\RealtyImage','object_id','id');
     }
 
     public function booking()

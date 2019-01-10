@@ -34,7 +34,7 @@
                 <td>{{$r->id}}</td>
                 <td>
                     @if($r->realtyImages()->exists())
-                        <img src="{{asset('storage/'.$r->realtyImages()->first()->image)}}" title="{{$r->name}}" alt="{{$r->name}}" style="height:30px;">
+                        <img src="{{asset('storage/'.$r->realtyImages()->firstOrFail()->image)}}" title="{{$r->name}}" alt="{{$r->name}}" style="height:50px;">
                     @else
                         Нет
                     @endif

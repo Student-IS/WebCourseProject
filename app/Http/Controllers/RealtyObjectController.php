@@ -55,7 +55,7 @@ class RealtyObjectController extends Controller
         $r->name = $request->name;
         $r->address = $request->address;
         $r->cost = (double)$request->cost;
-        $r->type_id = (int)$request->type;
+        $r->type_id = RealtyType::where('type_name', $request->type)->firstOrFail()->id;
         $r->area_total = (double)$request->areaTotal;
         $r->area_residential = (double)$request->areaResidential;
         $r->area_kitchen = (double)$request->areaKitchen;
