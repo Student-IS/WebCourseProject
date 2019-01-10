@@ -1,6 +1,23 @@
 @extends('layouts.app')
 @section('content')
     <h3>Новости</h3>
+    @isset($deleted)
+        <div class="alert alert-info alert-dismissible" role="alert">
+            Запись "{{$deleted[1]}}" (созданная {{$deleted[2]}}, №{{$deleted[0]}}) была удалена
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endisset
+    @isset($created)
+        <div class="alert alert-success alert-dismissible" role="alert">
+            Создана новая запись "{{$created[1]}}" ({{$created[2]}}, №{{$created[0]}})
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endisset
+    <a href="/admin/news/create" class="btn btn-outline-success mb-3">Добавить новую запись</a>
     <table class="table">
         <tbody>
         <tr><th>№</th><th>Заголовок</th><th>Иллюстрация</th><th>Дата создания</th><th>Дата обновления</th><th></th></tr>
@@ -9,7 +26,7 @@
                 <td>{{$post->id}}</td><td>{{$post->ru_title}}</td>
                 <td>
                     @if(isset($post->image))
-                        <img src="{{$post->image}}" title="{{$post->ru_title}}" alt="{{$post->ru_title}}" style="height:30px;">
+                        <img src="{{asset('storage/'.$post->image)}}" title="{{$post->ru_title}}" alt="{{$post->ru_title}}" style="height:30px;">
                     @else
                         Нет
                     @endif
@@ -20,12 +37,5 @@
         @endforeach
         </tbody>
     </table>
-    @isset($deleted)
-        <div class="alert alert-info alert-dismissible" role="alert">
-            Запись №{{$deleted[0]}} ({{$deleted[1]}}, созданная {{$deleted[2]}}) была удалёна
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endisset
+    <div class="row no-gutters mt-3 justify-content-center">{{$news->links()}}</div>
 @endsection

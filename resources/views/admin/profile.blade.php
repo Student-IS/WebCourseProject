@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="row no-gutters justify-content-center">
-            <div class="btn-group">
+            <div class="btn-group mt-3">
                 <a href="/admin/users" class="btn btn-outline-primary"> << Назад к списку</a>
                 <input type="submit" form="userUpd" class="btn btn-outline-primary" value="Обновить">
                 <button form="userDel" class="btn btn-outline-danger">Удалить</button>

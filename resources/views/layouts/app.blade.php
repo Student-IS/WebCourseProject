@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{$app->getLocale()}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,7 @@
 <div class="container-wcp d-flex">
     <header class="row no-gutters justify-content-center bg-primary">
         <div class="header-wcp container w-960-1200">
-            <nav class="navbar navbar-expand justify-content-center fixed-top navbar-dark bg-primary">
+            <nav class="navbar navbar-expand justify-content-center navbar-dark bg-primary">
                 <a class="navbar-brand" href="/">
                     <img alt="Logo" title="Logo" src="/img/logo-sm.png" style="height: 75px;">
                 </a>

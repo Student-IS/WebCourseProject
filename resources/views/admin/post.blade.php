@@ -16,7 +16,7 @@
                 <label for="image">Иллюстрация</label>
                 <input type="file" accept="image/*" class="form-control-file" id="image" name="image">
                 @isset($post->image)
-                    <a href="{{$post->image}}" class="btn btn-outline-primary">Посмотреть текущую иллюстрацию</a>
+                    <a href="{{asset('storage/'.$post->image)}}" class="btn btn-outline-primary">Посмотреть текущую иллюстрацию</a>
                 @endisset
                 <br>
                 <label for="short">Краткое описание новости (отображается на главной странице)</label>
@@ -56,7 +56,7 @@
         </div>
     @endisset
     <div class="row no-gutters justify-content-center">
-        <div class="btn-group">
+        <div class="btn-group mt-3">
             <a href="/admin/news" class="btn btn-outline-primary"> << Назад к списку</a>
             <input type="submit" form="postUpd" class="btn btn-outline-primary" value="Обновить">
             <input type="submit" form="postDel" class="btn btn-outline-danger" value="Удалить">

@@ -11,9 +11,10 @@
             @endif
         </small>
         @isset($post->image)
-            <img class="img-row h-360-480" src="{{$post->image}}" title="{{$post->ru_title}}" alt="{{$post->ru_title}}">
+            <img class="img-row h-360-480" src="{{asset('storage/'.$post->image)}}" title="{{$post->ru_title}}" alt="{{$post->ru_title}}">
         @endisset
         <p>{{$post->ru_short}}</p>
         <a href="/news/{{$post->id}}" class="btn btn-outline-primary">Подробнее</a>
     @endforeach
+    <div class="row no-gutters mt-3 justify-content-center">{{$news->links()}}</div>
 @endsection

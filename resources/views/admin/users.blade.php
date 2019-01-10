@@ -17,4 +17,5 @@
             </button>
         </div>
     @endisset
+    <div class="row no-gutters mt-3 justify-content-center">{{$users->links()}}</div>
 @endsection

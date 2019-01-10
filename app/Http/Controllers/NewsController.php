@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\File\File;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -15,13 +15,13 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::latest()->orderBy('id','desc')->get();
+        $news = News::latest()->orderBy('id','desc')->paginate(5);
         return view('user.news', ['news' => $news]);
     }
 
     public function indexAdmin()
     {
-        $news = News::latest()->orderBy('id','desc')->get();
+        $news = News::latest()->orderBy('id','desc')->paginate(10);
         return view('admin.news', ['news' => $news]);
     }
 
@@ -32,7 +32,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.postCreate');
     }
 
     /**
@@ -43,7 +43,30 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new News();
+        $post->ru_title = $request->title;
+        $post->ru_short = $request->short;
+        $post->ru_text = $request->text;
+
+        if ($request->hasFile('image'))
+        {
+            $f = $request->file('image');
+            if($f->isValid())
+            {
+                //$f->storeAs('img/news', $f->getClientOriginalName(), 'public');
+                //$post->image = 'img/news/'.$f->getClientOriginalName();
+                $path = Storage::disk('public')->put('img/news', $f);
+                $post->image = $path;
+            }
+        }
+
+        $post->en_title = $request->enTitle;
+        $post->en_short = $request->enShort;
+        $post->en_text = $request->enText;
+        $post->save();
+
+        $news = News::latest()->orderBy('id','desc')->get();
+        return view('admin.news', ['news' => $news, 'created' => [$post->id, $post->ru_title, $post->created_at]]);
     }
 
     /**
@@ -83,14 +106,15 @@ class NewsController extends Controller
 
         if ($request->hasFile('image'))
         {
-            if($request->file('image')->isValid())
+            $f = $request->file('image');
+            if($f->isValid())
             {
-                if (isset($post->image))
+                if (isset($post->image) && Storage::disk('public')->exists($post->image))
                 {
-                    $prev = new File($post->image);
-                    $prev->move('img/news/bak');
+                    Storage::disk('public')->move($post->image, 'img/news/bak/'.basename($post->image));
                 }
-                $request->image->store('img/news');
+                $path = Storage::disk('public')->put('img/news', $f);
+                $post->image = $path;
             }
         }
 
@@ -112,9 +136,13 @@ class NewsController extends Controller
     public function destroy(News $post)
     {
         $id = $post->id;
-        $title = $post->title;
+        $title = $post->ru_title;
         $datetime = $post->created_at;
 
+        if (isset($post->image))
+        {
+            Storage::disk('public')->move($post->image, 'img/news/bak/' . basename($post->image));
+        }
         $post->delete();
         $news = News::latest()->orderBy('id','desc')->get();
         return view('admin.news', ['news' => $news, 'deleted' => [$id, $title, $datetime]]);
