@@ -8,6 +8,6 @@ class RealtyType extends Model
 {
     public function realtyObjects()
     {
-        return $this->hasMany('App\RealtyObject','id','type_id');
+        return $this->hasMany('App\RealtyObject','type_id','id');
     }
 }

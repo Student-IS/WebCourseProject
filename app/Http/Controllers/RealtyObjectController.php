@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\RealtyObject;
 use Illuminate\Http\Request;
+use App\RealtyObject;
+use App\RealtyType;
+use App\RealtyImage;
+use Illuminate\Support\Facades\Storage;
 
 class RealtyObjectController extends Controller
 {
@@ -14,14 +17,20 @@ class RealtyObjectController extends Controller
      */
     public function index()
     {
-        $data = RealtyObject::orderBy('created_at','desc')->get();
-        return view('user.realty',['objects' => $data]);
+//        $realty = RealtyObject::latest()->orderBy('id','desc')->get();
+//        return view('user.realty',['objects' => $realty]);
     }
 
     public function indexOfType(string $type)
     {
-        $data = RealtyObject::where('type_id','=','1')->orderBy('created_at','desc')->get();
-        return view('user.realty',['objects' => $data, 'type' => $type]);
+//        $data = RealtyObject::where('type_id','1')->latest()->orderBy('id','desc')->get();
+//        return view('user.realty',['objects' => $data, 'type' => $type]);
+    }
+
+    public function indexAdmin()
+    {
+        $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
+        return view('admin.realty', ['realty' => $realty]);
     }
 
     /**
@@ -31,7 +40,7 @@ class RealtyObjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.realtyCreate');
     }
 
     /**
@@ -42,21 +51,36 @@ class RealtyObjectController extends Controller
      */
     public function store(Request $request)
     {
-        $r = new RealtyObject;
+        $r = new RealtyObject();
         $r->name = $request->name;
         $r->address = $request->address;
         $r->cost = (double)$request->cost;
-        $r->type_id = (int)$request->type_id;
-        $r->area_total = (double)$request->area_total;
-        $r->area_residential = (double)$request->area_residential;
-        $r->area_kitchen = (double)$request->area_kitchen;
+        $r->type_id = (int)$request->type;
+        $r->area_total = (double)$request->areaTotal;
+        $r->area_residential = (double)$request->areaResidential;
+        $r->area_kitchen = (double)$request->areaKitchen;
         $r->floors = (int)$request->floors;
         $r->floor = (int)$request->floor;
-        $r->ru_description = $request->ru_descritpion;
-        $r->en_description = $request->en_description;
+        $r->ru_description = $request->text;
+        $r->en_description = $request->enText;
         $r->phone = $request->phone;
         $r->email = $request->email;
+
         $r->save();
+
+        if($request->hasFile('images'))
+        {
+            foreach($request->file('images') as $image)
+            {
+                $rImage = new RealtyImage();
+                $rImage->object_id = $r->id;
+                $path = Storage::disk('public')->put("img/realty/{$r->id}", $image);
+                $rImage->image = $path;
+                $rImage->save();
+            }
+        }
+        $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
+        return view('admin.realty', ['realty' => $realty, 'created' => [$r->id, $r->name, $r->created_at]]);
     }
 
     /**
@@ -101,6 +125,6 @@ class RealtyObjectController extends Controller
      */
     public function destroy(RealtyObject $realtyObject)
     {
-        $realtyObject->delete();
+        //
     }
 }

@@ -16,11 +16,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
 
     Route::get('news', 'NewsController@indexAdmin')->name('admin.news');
-    Route::get('news/{post}', 'NewsController@edit')->name('admin.news.show');
+    Route::get('news/create', 'NewsController@create')->name('admin.news.create');
+    Route::get('news/{post}', 'NewsController@edit')->name('admin.news.showEdit');
+    Route::post('news', 'NewsController@store')->name('admin.news.store');
     Route::put('news/{post}', 'NewsController@update')->name('admin.news.update');
     Route::delete('news/{post}', 'NewsController@destroy')->name('admin.news.delete');
 
     Route::get('realty', 'RealtyObjectController@indexAdmin')->name('admin.realty');
+    Route::get('realty/create', 'RealtyObjectController@create')->name('admin.realty.create');
+    // Next route should be checked after 'create' to avoid attempts to show 'create' realty type
+    Route::get('realty/{type}', 'RealtyTypeController@showAdmin')->name('admin.realty.ofType');
+    Route::post('realty', 'RealtyObjectController@store')->name('admin.realty.store');
 
     Route::get('staticContent', 'StaticContentController@index')->name('admin.staticContent');
 
@@ -35,6 +41,7 @@ Route::prefix('admin')->group(function () {
 // User part
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('home', 'HomeController@index');
+
 Route::get('news', 'NewsController@index')->name('news');
 Route::get('news/{post}', 'NewsController@show')->name('post');
 
