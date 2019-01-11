@@ -15,22 +15,34 @@ class RealtyObjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $realty = RealtyObject::latest()->orderBy('id','desc')->get();
-//        return view('user.realty',['objects' => $realty]);
+        if ($request->has('class'))
+        {
+            $rType = RealtyType::where('type_name', $request->class)->firstOrFail();
+            $realty = $rType->realtyObjects()->latest()->orderBy('id','desc')->paginate(3);
+            $realty->appends(['class' => $request->class]);
+        }
+        else
+        {
+            $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(3);
+        }
+        return view('user.realty', ['realty' => $realty, 'type' => $request->class]);
     }
 
-    public function indexOfType(string $type)
+    public function indexAdmin(Request $request)
     {
-//        $data = RealtyObject::where('type_id','1')->latest()->orderBy('id','desc')->get();
-//        return view('user.realty',['objects' => $data, 'type' => $type]);
-    }
-
-    public function indexAdmin()
-    {
-        $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
-        return view('admin.realty', ['realty' => $realty]);
+        if ($request->has('class'))
+        {
+            $rType = RealtyType::where('type_name', $request->class)->firstOrFail();
+            $realty = $rType->realtyObjects()->latest()->orderBy('id','desc')->paginate(10);
+            $realty->appends(['class' => $request->class]);
+        }
+        else
+        {
+            $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
+        }
+        return view('admin.realty', ['realty' => $realty, 'type' => $request->class]);
     }
 
     /**
@@ -86,12 +98,12 @@ class RealtyObjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\RealtyObject  $realtyObject
+     * @param  \App\RealtyObject  $object
      * @return \Illuminate\Http\Response
      */
-    public function show(RealtyObject $realtyObject)
+    public function show(RealtyObject $object)
     {
-        //
+        return view('user.realtyObject', ['r' => $object]);
     }
 
     /**
@@ -100,9 +112,9 @@ class RealtyObjectController extends Controller
      * @param  \App\RealtyObject  $realtyObject
      * @return \Illuminate\Http\Response
      */
-    public function edit(RealtyObject $realtyObject)
+    public function edit(RealtyObject $object)
     {
-        //
+        return view('admin.realtyObject', ['r' => $object]);
     }
 
     /**
@@ -112,9 +124,38 @@ class RealtyObjectController extends Controller
      * @param  \App\RealtyObject  $realtyObject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RealtyObject $realtyObject)
+    public function update(Request $request, RealtyObject $object)
     {
-        //
+        $object->name = $request->name;
+        $object->address = $request->address;
+        $object->cost = (double)$request->cost;
+        $object->type_id = RealtyType::where('type_name', $request->type)->firstOrFail()->id;
+        $object->area_total = (double)$request->areaTotal;
+        $object->area_residential = (double)$request->areaResidential;
+        $object->area_kitchen = (double)$request->areaKitchen;
+        $object->floors = (int)$request->floors;
+        $object->floor = (int)$request->floor;
+        $object->ru_description = $request->text;
+        $object->en_description = $request->enText;
+        $object->phone = $request->phone;
+        $object->email = $request->email;
+
+        $object->updated_at = now();
+        $object->save();
+
+        if($request->hasFile('images'))
+        {
+            foreach($request->file('images') as $image)
+            {
+                $rImage = new RealtyImage();
+                $rImage->object_id = $object->id;
+                $path = Storage::disk('public')->put("img/realty/{$object->id}", $image);
+                $rImage->image = $path;
+                $rImage->save();
+            }
+        }
+
+        return view('admin.realtyObject', ['r' => $object, 'updated' => true]);
     }
 
     /**
@@ -123,8 +164,28 @@ class RealtyObjectController extends Controller
      * @param  \App\RealtyObject  $realtyObject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RealtyObject $realtyObject)
+    public function destroy(RealtyObject $object)
     {
-        //
+        $id = $object->id;
+        $name = $object->name;
+        $datetime = $object->created_at;
+
+        if($object->realtyImages()->exists())
+        {
+            foreach($object->realtyImages as $image)
+            {
+                if(Storage::disk('public')->exists($image->image))
+                {
+                    Storage::disk('public')->delete($image->image);
+                }
+                $image->delete();
+            }
+            Storage::disk('public')->deleteDirectory('img/realty/'.$object->id);
+        }
+
+        $object->delete();
+
+        $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
+        return view('admin.realty', ['realty' => $realty, 'deleted' => [$id, $name, $datetime]]);
     }
 }

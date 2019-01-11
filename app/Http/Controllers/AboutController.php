@@ -7,32 +7,51 @@ use App\StaticContent;
 
 class AboutController extends Controller
 {
-    function index()
+    public function index()
     {
         return view('user.about');
     }
 
-    function history()
+    public function history()
     {
-        $data = StaticContent::where('page_name','=','history')->first();
+        $data = StaticContent::where('page_name','history')->firstOrFail();
         return view('user.about.history', ['content' => $data->ru_content]);
     }
 
-    function service()
+    public function service()
     {
-        $data = StaticContent::where('page_name','=','service')->first();
+        $data = StaticContent::where('page_name','service')->firstOrFail();
         return view('user.about.service', ['content' => $data->ru_content]);
     }
 
-    function awards()
+    public function awards()
     {
-        $data = StaticContent::where('page_name','=','awards')->first();
+        $data = StaticContent::where('page_name','awards')->firstOrFail();
         return view('user.about.awards', ['content' => $data->ru_content]);
     }
 
-    function reviews()
+    public function reviews()
     {
-        $data = StaticContent::where('page_name','=','reviews')->first();
+        $data = StaticContent::where('page_name','reviews')->firstOrFail();
         return view('user.about.reviews', ['content' => $data->ru_content]);
+    }
+
+    public function edit(Request $request)
+    {
+        if ($request->has('name'))
+        {
+            $data = StaticContent::where('page_name', $request->name)->firstOrFail();
+        }
+        return view('admin.staticContent.edit', ['content' => $data]);
+    }
+
+    public function update(Request $request)
+    {
+        //
+        if ($request->has('name'))
+        {
+            $data = StaticContent::where('page_name', $request->name)->firstOrFail();
+        }
+        return view('admin.staticContent.edit', ['content' => $data, 'updated' => true]);
     }
 }

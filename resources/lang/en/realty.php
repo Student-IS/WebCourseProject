@@ -14,6 +14,7 @@ return [
     'residential' => 'residential',
     'country' => 'country',
     'commercial' => 'commercial',
+    'ShowAll' => 'Show all',
 
     'category' => 'Category',
 ];

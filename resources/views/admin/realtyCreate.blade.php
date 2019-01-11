@@ -17,7 +17,7 @@
                     <textarea id="enText" name="enText" class="form-control" placeholder="Object description, its features"></textarea>
                 </div>
                 <br>
-                <label for="images">Изображения <small>(не более пяти)</small></label>
+                <label for="images">Изображения<small>(не более 5-ти)</small></label>
                 <input type="file" class="form-control-file" id="images" name="images[]" multiple accept="image/*">
                 <br>
                 <h5>Контакты</h5>

@@ -24,9 +24,12 @@ Route::prefix('admin')->group(function () {
 
     Route::get('realty', 'RealtyObjectController@indexAdmin')->name('admin.realty');
     Route::get('realty/create', 'RealtyObjectController@create')->name('admin.realty.create');
-    // Next route should be checked after 'create' to avoid attempts to show 'create' realty type
-    Route::get('realty/{type}', 'RealtyTypeController@showAdmin')->name('admin.realty.ofType');
+    Route::get('realty/{object}', 'RealtyObjectController@edit')->name('admin.realty.edit');
     Route::post('realty', 'RealtyObjectController@store')->name('admin.realty.store');
+    Route::put('realty/{object}','RealtyObjectController@update')->name('admin.realty.update');
+    Route::delete('realty/{object}','RealtyObjectController@destroy')->name('admin.realty.delete');
+
+    Route::delete('realty/img/{image}', 'RealtyImageController@destroy')->name('admin.realty.image.delete');
 
     Route::get('staticContent', 'StaticContentController@index')->name('admin.staticContent');
 
@@ -47,9 +50,8 @@ Route::get('news/{post}', 'NewsController@show')->name('post');
 
 Route::prefix('realty')->group(function () {
     Route::get('/', 'RealtyObjectController@index')->name('realty');
-    Route::get('{type}', 'RealtyObjectController@indexOfType')->name('realty.ofType');
-
-//    Route::get('booking', 'BookingController@form')->name('realty.booking');
+    Route::get('{object}', 'RealtyObjectController@show')->name('realty.show');
+    Route::get('book/{object}', 'BookingController@store')->name('realty.book');
 });
 
 Route::prefix('about')->group(function () {

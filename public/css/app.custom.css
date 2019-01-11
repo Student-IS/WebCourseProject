@@ -3,6 +3,11 @@
 * WebCourseProject
 * -wcp postfix means "WebCourseProject"
  */
+:root {
+    --primary: #0956C8;
+    --secondary: #168EDF;
+}
+
 html, body {
     height: 100%;
 }
@@ -46,8 +51,25 @@ html, body {
     display: block;
     margin: 10px auto;
 }
-/*
-primary-color: #0956C8;
-secondary-color: #168EDF;
- */
+
+.slider-wcp {
+    height: 480px;
+}
+
+.slider-wcp img, .slider-wcp-max-height img {
+    height: inherit;
+    margin: 0 auto;
+}
+
+.slider-wcp-max-height {
+    max-height: 480px;
+}
+
+.bg-wcp-primary {
+    background-color: var(--primary) !important;
+}
+
+.bg-wcp-secondary {
+    background-color: var(--secondary) !important;
+}
 

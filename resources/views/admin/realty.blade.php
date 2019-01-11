@@ -19,9 +19,10 @@
     @endisset
     <a href="/admin/realty/create" class="btn btn-outline-success mb-3">Добавить новый объект</a>
     <p>Показать недвижимость в категории:
-        <a href="/admin/realty/residential"> @lang('realty.residential')</a>,
-        <a href="/admin/realty/country"> @lang('realty.country')</a>,
-        <a href="/admin/realty/commercial"> @lang('realty.commercial')</a>.
+        <a href="/admin/realty?class=residential"> @lang('realty.residential')</a>,
+        <a href="/admin/realty?class=country"> @lang('realty.country')</a>,
+        <a href="/admin/realty?class=commercial"> @lang('realty.commercial')</a>.
+        <a href="/admin/realty"> @lang('realty.ShowAll')</a>.
     </p>
     @isset($type)
         <h4>@lang("realty.category"): @lang("realty.{$type}")</h4>

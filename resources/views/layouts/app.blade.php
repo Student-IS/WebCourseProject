@@ -10,11 +10,11 @@
 </head>
 <body>
 <div class="container-wcp d-flex">
-    <header class="row no-gutters justify-content-center bg-primary">
+    <header class="row no-gutters justify-content-center bg-wcp-primary">
         <div class="header-wcp container w-960-1200">
-            <nav class="navbar navbar-expand justify-content-center navbar-dark bg-primary">
+            <nav class="navbar navbar-expand justify-content-center navbar-dark bg-wcp-primary">
                 <a class="navbar-brand" href="/">
-                    <img alt="Logo" title="Logo" src="/img/logo-sm.png" style="height: 75px;">
+                    <img alt="Logo" title="Logo" src="/img/logo.png" style="height: 75px;">
                 </a>
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
@@ -27,9 +27,9 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dd-realty" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Недвижимость</a>
                         <div class="dropdown-menu" aria-labelledby="dd-realty">
-                            <a class="dropdown-item" href="/realty/residential">Жилая</a>
-                            <a class="dropdown-item" href="/realty/country">Загородная</a>
-                            <a class="dropdown-item" href="/realty/commercial">Коммерческая</a>
+                            <a class="dropdown-item text-capitalize" href="/realty?class=residential">@lang('realty.residential')</a>
+                            <a class="dropdown-item text-capitalize" href="/realty?class=country">@lang('realty.country')</a>
+                            <a class="dropdown-item text-capitalize" href="/realty?class=commercial">@lang('realty.commercial')</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
