@@ -42,7 +42,7 @@ class AboutController extends Controller
         {
             $data = StaticContent::where('page_name', $request->name)->firstOrFail();
         }
-        return view('admin.staticContent.edit', ['content' => $data]);
+        return view('admin.staticContent', ['content' => $data]);
     }
 
     public function update(Request $request)
@@ -52,6 +52,6 @@ class AboutController extends Controller
         {
             $data = StaticContent::where('page_name', $request->name)->firstOrFail();
         }
-        return view('admin.staticContent.edit', ['content' => $data, 'updated' => true]);
+        return view('admin.staticContent', ['content' => $data, 'updated' => true]);
     }
 }

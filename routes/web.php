@@ -31,7 +31,7 @@ Route::prefix('admin')->group(function () {
 
     Route::delete('realty/img/{image}', 'RealtyImageController@destroy')->name('admin.realty.image.delete');
 
-    Route::get('staticContent', 'StaticContentController@index')->name('admin.staticContent');
+    Route::get('about', 'AboutController@edit')->name('admin.staticContent.edit');
 
     Route::get('booking', 'BookingController@index')->name('admin.booking');
 
