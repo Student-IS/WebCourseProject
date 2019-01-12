@@ -2,10 +2,11 @@
 * Custom styles of the app
 * WebCourseProject
 * -wcp postfix means "WebCourseProject"
+98CDD6
  */
 :root {
     --primary: #0956C8;
-    --secondary: #168EDF;
+    --secondary: #CCE4FF;
 }
 
 html, body {
@@ -18,7 +19,7 @@ html, body {
 }
 
 .header-wcp {
-    height: 100px;
+    height: 110px;
 }
 
 .footer-wcp {

@@ -9,7 +9,8 @@ use App\News;
 
 class HomeController extends Controller
 {
-    private const SLIDES_COUNT = 5;
+    private const SLIDES_COUNT = 8;
+
     public function index()
     {
         $imCount = RealtyImage::all()->count();
@@ -19,7 +20,7 @@ class HomeController extends Controller
         }
         elseif($imCount > 0)
         {
-            $slides = RealtyImage::all()->take(self::SLIDES_COUNT)->get();
+            $slides = RealtyImage::all();
         }
         else
         {

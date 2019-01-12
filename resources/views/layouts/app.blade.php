@@ -11,8 +11,8 @@
 <body>
 <div class="container-wcp d-flex">
     <header class="row no-gutters justify-content-center bg-wcp-primary">
-        <div class="header-wcp container w-960-1200">
-            <nav class="navbar navbar-expand justify-content-center navbar-dark bg-wcp-primary">
+        <div class="header-wcp col w-960-1200">
+            <nav class="navbar navbar-expand justify-content-center navbar-dark fixed-top bg-wcp-primary">
                 <a class="navbar-brand" href="/">
                     <img alt="Logo" title="Logo" src="/img/logo.png" style="height: 75px;">
                 </a>
@@ -55,7 +55,7 @@
             </nav>
         </div>
     </header>
-    <main class="flex-grow-1 row no-gutters justify-content-center bg-secondary">
+    <main class="flex-grow-1 row no-gutters justify-content-center bg-wcp-secondary">
         <div class="w-960-1200 content-place bg-light">
             @yield('content')
         </div>
