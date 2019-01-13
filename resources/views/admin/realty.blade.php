@@ -3,7 +3,7 @@
     <h3>Недвижимость</h3>
     @isset($deleted)
         <div class="alert alert-info alert-dismissible" role="alert">
-            Объект "{{$deleted[1]}}" (созданный {{$deleted[2]}}, №{{$deleted[0]}}) был удалён
+            Удалён объект с номером {{$deleted}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -11,7 +11,7 @@
     @endisset
     @isset($created)
         <div class="alert alert-success alert-dismissible" role="alert">
-            Создан новый объект "{{$created[1]}}" ({{$created[2]}}, №{{$created[0]}})
+            Номер созданного объекта: {{$created}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

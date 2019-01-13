@@ -8,14 +8,16 @@ use App\Right;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $deleted = $request->has('deleted')? $request->deleted : null;
         $users = User::orderBy('name')->paginate(10);
-        return view('admin.users', ['users' => $users]);
+        return view('admin.users', ['users' => $users, 'deleted' => $deleted]);
     }
 
-    public function show(User $user)
+    public function show()
     {
+        $user = User::findOrFail(1); // AUTH!!!
         return view('user.profile', ['user' => $user]);
     }
 
@@ -42,20 +44,40 @@ class UserController extends Controller
         {
             $user->rights()->toggle($aaRight->id);
         }
+        $user->name = $request->name;
         $user->updated_at = now();
         $user->save();
         return view('admin.profile', ['user' => $user, 'updated' => true]);
     }
 
+    public function updateAuth(Request $request)
+    {
+        $user = User::findOrFail(1); // AUTH!!!
+        $user->name = $request->name;
+        $user->updated_at = now();
+        $user->save();
+
+        return view('user.profile', ['user' => $user, 'updated' => true]);
+    }
+
     public function destroy(User $user)
     {
         $id = $user->id;
-        $name = $user->name;
 
         $user->rights()->detach();
         $user->delete();
 
-        $users = User::all();
-        return view('admin.users', ['users' => $users, 'deleted' => [$id, $name]]);
+        return redirect('/admin/users?deleted='.$id);
+    }
+
+    public function destroyAuth() // It may be UNREGISTER
+    {
+        $user = User::findOrFail(1); // AUTH!!!
+        // LOGOUT first ???
+
+        $user->rights()->detach();
+        $user->delete();
+
+        return redirect('/');
     }
 }

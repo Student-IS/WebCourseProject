@@ -49,6 +49,9 @@
                         <a class="nav-link" href="/sitemap">Карта сайта</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/profile">Личный кабинет</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/admin">Раздел администратора</a>
                     </li>
                 </ul>

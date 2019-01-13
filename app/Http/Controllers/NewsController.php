@@ -19,10 +19,12 @@ class NewsController extends Controller
         return view('user.news', ['news' => $news]);
     }
 
-    public function indexAdmin()
+    public function indexAdmin(Request $request)
     {
+        $created = $request->has('created')? $request->created : null;
+        $deleted = $request->has('deleted')? $request->deleted : null;
         $news = News::latest()->orderBy('id','desc')->paginate(10);
-        return view('admin.news', ['news' => $news]);
+        return view('admin.news', ['news' => $news, 'created' => $created, 'deleted' => $deleted]);
     }
 
     /**
@@ -65,8 +67,7 @@ class NewsController extends Controller
         $post->en_text = $request->enText;
         $post->save();
 
-        $news = News::latest()->orderBy('id','desc')->get();
-        return view('admin.news', ['news' => $news, 'created' => [$post->id, $post->ru_title, $post->created_at]]);
+        return redirect('/admin/news?created='.$post->id);
     }
 
     /**
@@ -136,15 +137,13 @@ class NewsController extends Controller
     public function destroy(News $post)
     {
         $id = $post->id;
-        $title = $post->ru_title;
-        $datetime = $post->created_at;
 
         if (isset($post->image))
         {
             Storage::disk('public')->move($post->image, 'img/news/bak/' . basename($post->image));
         }
         $post->delete();
-        $news = News::latest()->orderBy('id','desc')->get();
-        return view('admin.news', ['news' => $news, 'deleted' => [$id, $title, $datetime]]);
+
+        return redirect('/admin/news?deleted='.$id);
     }
 }

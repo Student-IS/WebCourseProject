@@ -3,7 +3,7 @@
     <h3>Новости</h3>
     @foreach($news as $post)
         <hr>
-        <h4>{{$post->ru_title }}</h4>
+        <h4>{{$post->ru_title}}</h4>
         <small>
             {{$post->created_at}}
             @if($post->created_at != $post->updated_at)

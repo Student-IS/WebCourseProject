@@ -3,7 +3,7 @@
     <h3>Новости</h3>
     @isset($deleted)
         <div class="alert alert-info alert-dismissible" role="alert">
-            Запись "{{$deleted[1]}}" (созданная {{$deleted[2]}}, №{{$deleted[0]}}) была удалена
+            Удалена запись с номером {{$deleted}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -11,7 +11,7 @@
     @endisset
     @isset($created)
         <div class="alert alert-success alert-dismissible" role="alert">
-            Создана новая запись "{{$created[1]}}" ({{$created[2]}}, №{{$created[0]}})
+            Номер созданной записи: {{$created}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

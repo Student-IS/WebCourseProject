@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder
         $user3->rights()->attach(1);
         $user3->rights()->attach(2);
 
-        factory(User::class, 10)->create()->each(function ($user) {
+        factory(User::class, 30)->create()->each(function ($user) {
             $user->rights()->attach(1);
         }) ;
     }

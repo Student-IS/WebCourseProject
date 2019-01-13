@@ -32,6 +32,8 @@ class RealtyObjectController extends Controller
 
     public function indexAdmin(Request $request)
     {
+        $created = $request->has('created')? $request->created : null;
+        $deleted = $request->has('deleted')? $request->deleted : null;
         if ($request->has('class'))
         {
             $rType = RealtyType::where('type_name', $request->class)->firstOrFail();
@@ -42,7 +44,7 @@ class RealtyObjectController extends Controller
         {
             $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
         }
-        return view('admin.realty', ['realty' => $realty, 'type' => $request->class]);
+        return view('admin.realty', ['realty' => $realty, 'type' => $request->class, 'created' => $created, 'deleted' => $deleted]);
     }
 
     /**
@@ -91,8 +93,8 @@ class RealtyObjectController extends Controller
                 $rImage->save();
             }
         }
-        $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
-        return view('admin.realty', ['realty' => $realty, 'created' => [$r->id, $r->name, $r->created_at]]);
+
+        return redirect('/admin/realty?created='.$r->id);
     }
 
     /**
@@ -185,7 +187,6 @@ class RealtyObjectController extends Controller
 
         $object->delete();
 
-        $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(10);
-        return view('admin.realty', ['realty' => $realty, 'deleted' => [$id, $name, $datetime]]);
+        return redirect('/admin/realty?deleted='.$id);
     }
 }

@@ -65,4 +65,7 @@ Route::prefix('about')->group(function () {
 Route::get('location', function() { return view('user.location'); })->name('location');
 Route::get('sitemap', function() { return view('user.sitemap'); })->name('sitemap');
 
-?>
+Route::get('profile', 'UserController@show')->name('profile');
+// POST === register
+Route::put('profile/update', 'UserController@updateAuth')->name('profile.update');
+Route::delete('profile/delete', 'UserController@destroyAuth')->name('profile.delete');
