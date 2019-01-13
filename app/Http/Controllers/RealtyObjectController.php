@@ -103,9 +103,10 @@ class RealtyObjectController extends Controller
      * @param  \App\RealtyObject  $object
      * @return \Illuminate\Http\Response
      */
-    public function show(RealtyObject $object)
+    public function show(RealtyObject $object, Request $request)
     {
-        return view('user.realtyObject', ['r' => $object]);
+        $booked = $request->has('booked')? true : null;
+        return view('user.realtyObject', ['r' => $object, 'booked' => $booked]);
     }
 
     /**

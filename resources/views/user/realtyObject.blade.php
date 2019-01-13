@@ -60,18 +60,30 @@
                     </button>
                 </div>
             @endisset
+            @if($booked)
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    Объект недвижимости забронирован
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endisset
         </div>
         <div class="col ml-3">
 
         </div>
     </div>
-    <form id="realtyDel" action="/admin/realty/{{$r->id}}" method="POST" hidden>
-        @csrf @method('DELETE')
-    </form>
+    <form id="realtyBook" action="/realty/book/{{$r->id}}" method="GET" hidden></form>
     <div class="row no-gutters justify-content-center">
         <div class="btn-group mt-3">
             <a href="/realty" class="btn btn-outline-primary"> << Назад к списку</a>
-            <input type="submit" form="realtyBook" class="btn btn-outline-primary" value="Забронировать">
+            @auth
+                <input type="submit" form="realtyBook"
+                @if($r->booking()->exists()) class="btn btn-outline-primary" value="Забронировать"
+                @else class="btn btn-outline-secondary" value="Забронировано" disabled
+                @endif
+                >
+            @endauth
         </div>
     </div>
 @endsection

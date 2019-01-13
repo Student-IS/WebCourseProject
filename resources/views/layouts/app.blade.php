@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{$app->getLocale()}}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,11 +48,36 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/sitemap">Карта сайта</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">Личный кабинет</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">Раздел администратора</a>
+                    <li class="nav-item dropdown">
+                    @guest
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            @lang('auth.login') <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('login') }}">@lang('auth.login')</a>
+                            @if (Route::has('register'))
+                                <a class="dropdown-item" href="{{ route('register') }}">@lang('auth.register')</a>
+                            @endif
+                        </div>
+                    @else
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/profile">Личный кабинет</a>
+                            @if(Auth::user()->rights()->count() > 1)
+                                <a class="dropdown-item" href="/admin">Раздел администратора</a>
+                            @endif
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                @lang('auth.logout')
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                                @csrf
+                            </form>
+                        </div>
+                    @endguest
                     </li>
                 </ul>
             </nav>

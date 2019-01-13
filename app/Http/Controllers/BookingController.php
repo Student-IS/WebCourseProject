@@ -6,12 +6,18 @@ use Illuminate\Http\Request;
 use App\Booking;
 use App\RealtyObject;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+
     }
 
     public function indexAdmin()
@@ -20,10 +26,16 @@ class BookingController extends Controller
         return view('admin.booking', ['orders' => $orders]);
     }
 
-    public function store(User $user, RealtyObject $object)
+    public function store(RealtyObject $object)
     {
-        //
-        return redirect()->back()->withInput(['created' => true]);
+        $booking = new Booking();
+        $booking->user()->associate(Auth::user());
+        $booking->realtyObject()->associate($object);
+        $booking->save();
+
+        return redirect()->route(
+            'realty.show',
+            ['object' => $object->id, 'booked' => true]);
     }
 
 }

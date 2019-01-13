@@ -15,30 +15,36 @@
 Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
 
-    Route::get('news', 'NewsController@indexAdmin')->name('admin.news');
-    Route::get('news/create', 'NewsController@create')->name('admin.news.create');
-    Route::get('news/{post}', 'NewsController@edit')->name('admin.news.showEdit');
-    Route::post('news', 'NewsController@store')->name('admin.news.store');
-    Route::put('news/{post}', 'NewsController@update')->name('admin.news.update');
-    Route::delete('news/{post}', 'NewsController@destroy')->name('admin.news.delete');
+    Route::middleware('hasRight:edit_content')->group(function () {
+        Route::get('news', 'NewsController@indexAdmin')->name('admin.news');
+        Route::get('news/create', 'NewsController@create')->name('admin.news.create');
+        Route::get('news/{post}', 'NewsController@edit')->name('admin.news.showEdit');
+        Route::post('news', 'NewsController@store')->name('admin.news.store');
+        Route::put('news/{post}', 'NewsController@update')->name('admin.news.update');
+        Route::delete('news/{post}', 'NewsController@destroy')->name('admin.news.delete');
 
-    Route::get('realty', 'RealtyObjectController@indexAdmin')->name('admin.realty');
-    Route::get('realty/create', 'RealtyObjectController@create')->name('admin.realty.create');
-    Route::get('realty/{object}', 'RealtyObjectController@edit')->name('admin.realty.edit');
-    Route::post('realty', 'RealtyObjectController@store')->name('admin.realty.store');
-    Route::put('realty/{object}','RealtyObjectController@update')->name('admin.realty.update');
-    Route::delete('realty/{object}','RealtyObjectController@destroy')->name('admin.realty.delete');
+        Route::get('realty', 'RealtyObjectController@indexAdmin')->name('admin.realty');
+        Route::get('realty/create', 'RealtyObjectController@create')->name('admin.realty.create');
+        Route::get('realty/{object}', 'RealtyObjectController@edit')->name('admin.realty.edit');
+        Route::post('realty', 'RealtyObjectController@store')->name('admin.realty.store');
+        Route::put('realty/{object}','RealtyObjectController@update')->name('admin.realty.update');
+        Route::delete('realty/{object}','RealtyObjectController@destroy')->name('admin.realty.delete');
 
-    Route::delete('realty/img/{image}', 'RealtyImageController@destroy')->name('admin.realty.image.delete');
+        Route::delete('realty/img/{image}', 'RealtyImageController@destroy')->name('admin.realty.image.delete');
 
-    Route::get('about', 'AboutController@edit')->name('admin.staticContent.edit');
+        Route::get('about', 'AboutController@edit')->name('admin.staticContent.edit');
+    });
 
-    Route::get('booking', 'BookingController@index')->name('admin.booking');
+    Route::middleware('hasRight:view_bookings')->group(function () {
+        Route::get('booking', 'BookingController@index')->name('admin.booking');
+    });
 
-    Route::get('users', 'UserController@index')->name('admin.users');
-    Route::get('users/{user}', 'UserController@edit')->name('admin.users.show');
-    Route::put('users/{user}', 'UserController@update')->name('admin.users.update');
-    Route::delete('users/{user}', 'UserController@destroy')->name('admin.users.delete');
+    Route::middleware('hasRight:add_admins')->group(function () {
+        Route::get('users', 'UserController@index')->name('admin.users');
+        Route::get('users/{user}', 'UserController@edit')->name('admin.users.show');
+        Route::put('users/{user}', 'UserController@update')->name('admin.users.update');
+        Route::delete('users/{user}', 'UserController@destroy')->name('admin.users.delete');
+    });
 });
 
 // User part
@@ -66,6 +72,8 @@ Route::get('location', function() { return view('user.location'); })->name('loca
 Route::get('sitemap', function() { return view('user.sitemap'); })->name('sitemap');
 
 Route::get('profile', 'UserController@show')->name('profile');
-// POST === register
 Route::put('profile/update', 'UserController@updateAuth')->name('profile.update');
 Route::delete('profile/delete', 'UserController@destroyAuth')->name('profile.delete');
+
+// Generated with 'make:auth' Artisan command
+Auth::routes();

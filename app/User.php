@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Right','users__rights','user_id','right_id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany('App\Booking','user_id','id');
+    }
 }
