@@ -48,6 +48,13 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|max:255'
+            ]
+        );
+
         $vbRight = Right::where('name','view_bookings')->first();
         $ecRight = Right::where('name','edit_content')->first();
         $aaRight = Right::where('name','add_admins')->first();
@@ -72,6 +79,13 @@ class UserController extends Controller
 
     public function updateAuth(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|max:255'
+            ]
+        );
+
         $user = Auth::user();
         $user->name = $request->name;
         $user->updated_at = now();

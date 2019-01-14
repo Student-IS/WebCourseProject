@@ -41,7 +41,7 @@ class HomeController extends Controller
             $slides = null;
         }
 
-        $count = RealtyObject::all()->count();
+        $count = RealtyObject::whereNull('sold_at')->count();
         $news = News::latest()->orderBy('id','desc')->take(3)->get();
 
         return view('user.home', ['slides' => $slides, 'totalCount' => $count, 'news' => $news]);

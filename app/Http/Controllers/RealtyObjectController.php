@@ -8,6 +8,7 @@ use App\RealtyType;
 use App\RealtyImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class RealtyObjectController extends Controller
 {
@@ -66,6 +67,27 @@ class RealtyObjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|max:255',
+                'address' => 'required|max:255',
+                'cost' => 'required|numeric',
+                'type' => 'required',
+                'areaTotal' => 'required|numeric',
+                'areaResidential' => 'nullable|numeric|lte:areaTotal',
+                'areaKitchen' => 'nullable|numeric|lte:areaTotal',
+                'floors' => 'required|integer',
+                'floor' => 'nullable|integer|lte:floors',
+                'text' => 'required',
+                'enText' => 'nullable',
+                'phone' => 'required|digits_between:8,11',
+                'email' => 'nullable|email',
+                'images' => 'nullable',
+                'image.*' => 'image|mimes:jpg,jpeg,png,gif,svg|max:4096'
+            ]
+        );
+
         $r = new RealtyObject();
         $r->name = $request->name;
         $r->address = $request->address;
@@ -149,6 +171,27 @@ class RealtyObjectController extends Controller
      */
     public function update(Request $request, RealtyObject $object)
     {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|max:255',
+                'address' => 'required|max:255',
+                'cost' => 'required|numeric',
+                'type' => 'required',
+                'areaTotal' => 'required|numeric',
+                'areaResidential' => 'nullable|numeric|lte:areaTotal',
+                'areaKitchen' => 'nullable|numeric|lte:areaTotal',
+                'floors' => 'required|integer',
+                'floor' => 'nullable|integer|lte:floors',
+                'text' => 'required',
+                'enText' => 'nullable',
+                'phone' => 'required|digits_between:8,11',
+                'email' => 'nullable|email',
+                'images' => 'nullable',
+                'image.*' => 'image|mimes:jpg,jpeg,png,gif,svg|max:4096'
+            ]
+        );
+
         $object->name = $request->name;
         $object->address = $request->address;
         $object->cost = (double)$request->cost;

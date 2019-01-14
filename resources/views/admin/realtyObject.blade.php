@@ -51,7 +51,7 @@
                 <label for="floor">Этаж, на котором расположен объект <small>(необязательно)</small></label>
                 <input type="number" id="floor" name="floor" min="-1" class="form-control" value="{{$r->floor}}">
                 <br>
-                <label for="images">Добавить изображения<small>(всего должно быть не более 5-ти)</small></label>
+                <label for="images">Добавить изображения</label>
                 <input type="file" class="form-control-file" id="images" name="images[]" multiple accept="image/*">
                 <br>
             </div>

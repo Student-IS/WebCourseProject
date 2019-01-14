@@ -45,6 +45,19 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'ru_title' => 'required|max:255',
+                'ru_short' => 'nullable',
+                'ru_text' => 'nullable',
+                'en_title' => 'nullable|max:255',
+                'en_short' => 'nullable',
+                'en_text' => 'nullable',
+                'image' => 'nullable|max:255'
+            ]
+        );
+
         $post = new News();
         $post->ru_title = $request->title;
         $post->ru_short = $request->short;
@@ -101,6 +114,19 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $post)
     {
+        $this->validate(
+            $request,
+            [
+                'ru_title' => 'required|max:255',
+                'ru_short' => 'nullable',
+                'ru_text' => 'nullable',
+                'en_title' => 'nullable|max:255',
+                'en_short' => 'nullable',
+                'en_text' => 'nullable',
+                'image' => 'nullable|max:255'
+            ]
+        );
+
         $post->ru_title = $request->title;
         $post->ru_short = $request->short;
         $post->ru_text = $request->text;

@@ -17,7 +17,7 @@
                     <textarea id="enText" name="enText" class="form-control" placeholder="Object description, its features"></textarea>
                 </div>
                 <br>
-                <label for="images">Изображения<small>(не более 5-ти)</small></label>
+                <label for="images">Изображения</label>
                 <input type="file" class="form-control-file" id="images" name="images[]" multiple accept="image/*">
                 <br>
                 <h5>Контакты</h5>
@@ -48,10 +48,20 @@
             </div>
         </div>
     </form>
+    @if(!$errors->isEmpty())
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            @foreach($errors->all() as $message)
+                <p>{{ $message }}</p>
+            @endforeach
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row no-gutters justify-content-center">
         <div class="btn-group mt-3">
             <a href="/admin/realty" class="btn btn-outline-primary"> << Назад к списку</a>
-            <input type="submit" form="realtyAdd" class="btn btn-outline-success" value="Опубликовать запись">
+            <input type="submit" form="realtyAdd" class="btn btn-outline-success" value="Добавить объект">
             <input type="reset" form="realtyAdd" class="btn btn-outline-warning" value="Очистить форму">
         </div>
     </div>

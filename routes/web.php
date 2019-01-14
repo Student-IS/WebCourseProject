@@ -82,3 +82,16 @@ Auth::routes();
 //
 
 Route::fallback('ErrorController@notFound');
+
+//Route::get('/lang/{key}', function ($key) {
+//    session()->put('locale', $key);
+//    return redirect()->back();
+//})->middleware('lang');
+
+//Route::get('/lang/{locale}', function ($locale) {
+//
+//    if (in_array($locale, Config::get('app.locales'))) {
+//        Session::put('locale', $locale);
+//    }
+//    return redirect()->back();
+//});

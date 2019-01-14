@@ -96,7 +96,12 @@
             <div class="footer-wcp col w-960-1200">
                 <div class="row no-gutters">
                     <div class="col"><p class="text-white">2018-2019 &copy; Student IS</p></div>
-                    <div class="col"><a href="https://github.com/Student-IS/WebCourseProject" class="text-white">Проект на GitHub</a></div>
+                    <div class="col">
+                        <a href="https://github.com/Student-IS/WebCourseProject" class="text-white">Проект на GitHub</a><br>
+                        <!--Язык:
+                        <a href="/lang/ru" class="text-white">Русский</a>
+                        <a href="/lang/en" class="text-white">English</a>-->
+                    </div>
                 </div>
             </div>
         </div>
