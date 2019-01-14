@@ -20,8 +20,8 @@ class RealtyObject extends Model
         return $this->hasMany('App\RealtyImage','object_id','id');
     }
 
-    public function booking()
+    public function user()
     {
-        return $this->hasOne('App\Booking','object_id','id');
+        return $this->belongsTo('App\User','booked_by','id');
     }
 }

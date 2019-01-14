@@ -14,6 +14,8 @@ $factory->define(App\RealtyObject::class, function (Faker $faker) {
         'floor' => 1,
         'ru_description' => $faker->realText(100),
         'phone' => 88005553535,
-        'email' => $faker->safeEmail()
+        'email' => $faker->safeEmail(),
+        'booked_by' => null,
+        'sold_at' => null,
     ];
 });

@@ -53,17 +53,42 @@
                     </tr>
                     </tbody>
                 </table>
-                @isset($updated)
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        Учётная запись обновлена
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endisset
             </div>
         </div>
     </form>
+    <div class="row no-gutters">
+        <div class="col">
+            @if($user->realtyObjects()->exists())
+                <h5>Забронированные объекты</h5>
+                <table class="table">
+                    <tr><th>Объект</th><th>Адрес</th><th>Цена</th><th>Об объекте</th><th>Приобретён</th></tr>
+                    @foreach($user->realtyObjects as $ro)
+                        <tr>
+                            <td>{{$ro->name}}</td>
+                            <td>{{$ro->address}}</td>
+                            <td>{{number_format($ro->cost, 2, ',', ' ')}} р.</td>
+                            <td><a href="/realty/{{$ro->id}}?src=profile">Подробнее</a></td>
+                            @isset($ro->sold_at)
+                                <td>
+                                    <span class="badge badge-success">{{$ro->sold_at}}</span>
+                                </td>
+                            @else
+                                <td>Нет</td>
+                            @endisset
+                        </tr>
+                    @endforeach
+                </table>
+            @endif
+            @isset($updated)
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    Учётная запись обновлена
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endisset
+        </div>
+    </div>
     <form id="userDel" action="/admin/users/{{$user->id}}" method="POST" hidden>
         @csrf @method('DELETE')
     </form>

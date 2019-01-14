@@ -36,7 +36,8 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::middleware('hasRight:view_bookings')->group(function () {
-        Route::get('booking', 'BookingController@index')->name('admin.booking');
+        Route::get('booking', 'RealtyObjectController@showBookings')->name('admin.booking');
+        Route::put('realty/sell/{object}', 'RealtyObjectController@sell')->name('admin.booking.sell');
     });
 
     Route::middleware('hasRight:add_admins')->group(function () {
@@ -57,7 +58,8 @@ Route::get('news/{post}', 'NewsController@show')->name('post');
 Route::prefix('realty')->group(function () {
     Route::get('/', 'RealtyObjectController@index')->name('realty');
     Route::get('{object}', 'RealtyObjectController@show')->name('realty.show');
-    Route::get('book/{object}', 'BookingController@store')->name('realty.book');
+    Route::middleware('auth')->put('book/{object}', 'RealtyObjectController@book')->name('realty.book');
+    Route::middleware('auth')->put('cancelBooking/{object}', 'RealtyObjectController@cancelBooking')->name('realty.cancelBooking');
 });
 
 Route::prefix('about')->group(function () {
@@ -77,3 +79,6 @@ Route::delete('profile/delete', 'UserController@destroyAuth')->name('profile.del
 
 // Generated with 'make:auth' Artisan command
 Auth::routes();
+//
+
+Route::fallback('ErrorController@notFound');

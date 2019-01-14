@@ -89,6 +89,14 @@ class UserController extends Controller
 
         $id = $user->id;
 
+        if($user->realtyObjects()->exists())
+        {
+            foreach($user->realtyObjects as $object)
+            {
+                $object->booked_by = null;
+                $object->save();
+            }
+        }
         $user->rights()->detach();
         $user->delete();
 
@@ -99,6 +107,14 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+        if($user->realtyObjects()->exists())
+        {
+            foreach($user->realtyObjects as $object)
+            {
+                $object->booked_by = null;
+                $object->save();
+            }
+        }
         $user->rights()->detach();
         $user->delete();
 

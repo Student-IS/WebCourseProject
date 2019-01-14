@@ -10,6 +10,8 @@
                     <tr><th>Номер в базе</th><td>{{$r->id}}</td></tr>
                     <tr><td>Дата добавления</td><td>{{$r->created_at}}</td></tr>
                     <tr><td>Дата обновления</td><td>{{$r->updated_at}}</td></tr>
+                    <tr><td>Дата продажи</td><td>@isset($r->sold_at)<span class="badge badge-success">{{$r->sold_at}}</span>@else Не продана@endisset</td></tr>
+                    <tr><td>Забронирована</td><td>@isset($r->booked_by)Да@else Нет@endisset</td></tr>
                     </tbody>
                 </table>
                 <label for="name">Название</label>

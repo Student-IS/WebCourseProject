@@ -30,6 +30,9 @@
                             <a class="dropdown-item text-capitalize" href="/realty?class=residential">@lang('realty.residential')</a>
                             <a class="dropdown-item text-capitalize" href="/realty?class=country">@lang('realty.country')</a>
                             <a class="dropdown-item text-capitalize" href="/realty?class=commercial">@lang('realty.commercial')</a>
+                            {{--<h6 class="dropdown-header">@lang('realty.category')</h6>--}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-capitalize" href="/realty">@lang('realty.all')</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

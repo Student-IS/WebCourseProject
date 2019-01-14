@@ -18,13 +18,21 @@
         </div>
     @endisset
     <p>Показать недвижимость в категории:
-        <a href="/realty?class=residential"> @lang('realty.residential')</a>,
-        <a href="/realty?class=country"> @lang('realty.country')</a>,
-        <a href="/realty?class=commercial"> @lang('realty.commercial')</a>.
-        <a href="/realty"> @lang('realty.ShowAll')</a>.
-    </p>
     @isset($type)
+        <?php $types = ['residential', 'country', 'commercial'] ?>
+        @foreach($types as $t)
+            @if($t != $type)
+                <a href="/realty?class={{$t}}">@lang("realty.{$t}")</a>,
+            @endif
+        @endforeach
+        <a href="/realty">@lang('realty.all')</a>.
+        </p>
         <h4>@lang("realty.category"): @lang("realty.{$type}")</h4>
+    @else
+        <a href="/realty?class=residential">@lang('realty.residential')</a>,
+        <a href="/realty?class=country">@lang('realty.country')</a>,
+        <a href="/realty?class=commercial">@lang('realty.commercial')</a>.
+        </p>
     @endisset
     <div class="card-deck">
         @forelse($realty as $r)
@@ -42,7 +50,7 @@
                         <tr><th>Тип</th><td class="text-capitalize">@lang("realty.{$r->realtyType->type_name}")</td></tr>
                         </tbody>
                     </table>
-                    @if($r->booking()->exists())
+                    @isset($r->booked_by)
                         <div class="alert alert-primary">Забронировано</div>
                     @endif
                     <a href="/realty/{{$r->id}}" class="btn btn-outline-primary">Подробнее</a>

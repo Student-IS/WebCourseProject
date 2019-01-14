@@ -7,6 +7,7 @@ use App\RealtyObject;
 use App\RealtyType;
 use App\RealtyImage;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class RealtyObjectController extends Controller
 {
@@ -20,12 +21,12 @@ class RealtyObjectController extends Controller
         if ($request->has('class'))
         {
             $rType = RealtyType::where('type_name', $request->class)->firstOrFail();
-            $realty = $rType->realtyObjects()->latest()->orderBy('id','desc')->paginate(3);
+            $realty = $rType->realtyObjects()->whereNull('sold_at')->latest()->orderBy('id','desc')->paginate(3);
             $realty->appends(['class' => $request->class]);
         }
         else
         {
-            $realty = RealtyObject::latest()->orderBy('id','desc')->paginate(3);
+            $realty = RealtyObject::whereNull('sold_at')->latest()->orderBy('id','desc')->paginate(3);
         }
         return view('user.realty', ['realty' => $realty, 'type' => $request->class]);
     }
@@ -106,7 +107,9 @@ class RealtyObjectController extends Controller
     public function show(RealtyObject $object, Request $request)
     {
         $booked = $request->has('booked')? true : null;
-        return view('user.realtyObject', ['r' => $object, 'booked' => $booked]);
+        $src = $request->has('src')? $request->src : null;
+
+        return view('user.realtyObject', ['r' => $object, 'booked' => $booked, 'src' => $src]);
     }
 
     /**
@@ -118,6 +121,23 @@ class RealtyObjectController extends Controller
     public function edit(RealtyObject $object)
     {
         return view('admin.realtyObject', ['r' => $object]);
+    }
+
+    public function showBookings(Request $request)
+    {
+        $sold = $request->has('sold') ? $request->sold : null;
+        if ($request->has('class'))
+        {
+            $rType = RealtyType::where('type_name', $request->class)->firstOrFail();
+            $realty = $rType->realtyObjects()->whereNotNull('booked_by')->paginate(10);
+            $realty->appends(['class' => $request->class]);
+        }
+        else
+        {
+            $realty = RealtyObject::whereNotNull('booked_by')->paginate(10);
+        }
+
+        return view('admin.booking', ['realty' => $realty, 'sold' => $sold, 'type' => $request->class]);
     }
 
     /**
@@ -159,6 +179,41 @@ class RealtyObjectController extends Controller
         }
 
         return view('admin.realtyObject', ['r' => $object, 'updated' => true]);
+    }
+
+    public function book(RealtyObject $object)
+    {
+        if (!$object->booked_by && !$object->sold_at)
+        {
+            $object->booked_by = Auth::id();
+        }
+        $object->save();
+
+        return redirect()->route('realty.show', ['object' => $object, 'booked' => true]);
+    }
+
+    public function cancelBooking(RealtyObject $object)
+    {
+        if ($object->booked_by && !$object->sold_at)
+        {
+            if ($object->user->id === Auth::id() ||
+                Auth::user()->rights()->where('name','view_bookings')->exists())
+            $object->booked_by = null;
+        }
+        $object->save();
+
+        return redirect()->back();
+    }
+
+    public function sell(RealtyObject $object)
+    {
+        if (!$object->sold_at)
+        {
+            $object->sold_at = now();
+        }
+        $object->save();
+
+        return redirect()->route('admin.booking', ['sold' => $object->id]);
     }
 
     /**

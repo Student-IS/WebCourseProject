@@ -38,4 +38,9 @@
         </tbody>
     </table>
     <div class="row no-gutters mt-3 justify-content-center">{{$news->links()}}</div>
+    <div class="row no-gutters justify-content-center">
+        <div class="btn-group mt-3">
+            <a href="/admin" class="btn btn-outline-primary"> << Назад к средствам администрирования</a>
+        </div>
+    </div>
 @endsection

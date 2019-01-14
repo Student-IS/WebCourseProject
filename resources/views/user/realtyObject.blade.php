@@ -68,22 +68,44 @@
                     </button>
                 </div>
             @endisset
-        </div>
-        <div class="col ml-3">
-
+            @isset($r->sold_at)
+                <div class="alert alert-warning" role="alert">
+                    Объект продан
+                </div>
+            @endisset
         </div>
     </div>
-    <form id="realtyBook" action="/realty/book/{{$r->id}}" method="GET" hidden></form>
     <div class="row no-gutters justify-content-center">
         <div class="btn-group mt-3">
             <a href="/realty" class="btn btn-outline-primary"> << Назад к списку</a>
             @auth
-                <input type="submit" form="realtyBook"
-                @if($r->booking()->exists()) class="btn btn-outline-primary" value="Забронировать"
-                @else class="btn btn-outline-secondary" value="Забронировано" disabled
+                <form id="realtyBooking"
+                      @if($r->booked_by && ($r->booked_by == Auth::id()))
+                        action="/realty/cancelBooking/{{$r->id}}"
+                      @else
+                        action="/realty/book/{{$r->id}}"
+                      @endif
+                      method="POST" hidden>
+                    @csrf @method('PUT')
+                </form>
+                <input type="submit" form="realtyBooking"
+                    @isset($r->booked_by)
+                        class="btn btn-outline-secondary" value="Забронировано" disabled
+                    @else
+                        class="btn btn-outline-primary" value="Забронировать"
+                    @endif
+                    >
+                @if($r->booked_by == Auth::id() && !isset($r->sold_at))
+                    <input type="submit" form="realtyBooking" class="btn btn-outline-primary" value="Отменить бронирование">
                 @endif
-                >
             @endauth
+            @isset($src)
+                @if($src == 'profile')
+                    <a href="/profile" class="btn btn-outline-primary">Назад в личный кабинет</a>
+                @elseif($src == 'list')
+                    <a href="/admin/booking" class="btn btn-outline-primary">Назад к списку заявок</a>
+                @endif
+            @endisset
         </div>
     </div>
 @endsection

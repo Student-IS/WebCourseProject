@@ -5,8 +5,8 @@
     <p>Доступны средства администрирования для следующих разделов:</p>
     <ul class="nav nav-pills nav-fill">
         @if(Auth::user()->rights()->where('name','edit_content')->exists())
-            <li class="nav-item"><a class="nav-link" href="/admin/news">Новости</a></li>
-            <li class="nav-item"><a class="nav-link" href="/admin/realty">Недвижимость</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/news">Страницы новостей</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/realty">Объекты недвижимости</a></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dd-about" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Справочные страницы (о компании)</a>

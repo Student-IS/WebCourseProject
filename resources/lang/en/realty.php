@@ -14,7 +14,8 @@ return [
     'residential' => 'residential',
     'country' => 'country',
     'commercial' => 'commercial',
-    'ShowAll' => 'Show all',
+    'all' => 'all',
+    'allObjects' => 'All objects',
 
     'category' => 'Category',
 ];

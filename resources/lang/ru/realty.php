@@ -14,7 +14,8 @@ return [
     'residential' => 'жилая',
     'country' => 'загородная',
     'commercial' => 'коммерческая',
-    'ShowAll' => 'Показать все',
+    'all' => 'вся',
+    'allObjects' => 'Все объекты',
 
     'category' => 'Категория',
 ];

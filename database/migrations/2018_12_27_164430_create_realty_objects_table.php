@@ -28,9 +28,12 @@ class CreateRealtyObjectsTable extends Migration
             $table->text('en_description')->nullable();
             $table->string('phone');
             $table->string('email')->nullable();
+            $table->unsignedInteger('booked_by')->nullable();
+            $table->dateTime('sold_at')->nullable();
             $table->timestamps();
 
             $table->foreign('type_id')->references('id')->on('realty_types');
+            $table->foreign('booked_by')->references('id')->on('users');
         });
     }
 
