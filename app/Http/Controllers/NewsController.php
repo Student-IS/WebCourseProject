@@ -48,13 +48,13 @@ class NewsController extends Controller
         $this->validate(
             $request,
             [
-                'ru_title' => 'required|max:255',
-                'ru_short' => 'nullable',
-                'ru_text' => 'nullable',
-                'en_title' => 'nullable|max:255',
-                'en_short' => 'nullable',
-                'en_text' => 'nullable',
-                'image' => 'nullable|max:255'
+                'title' => 'required|max:255',
+                'short' => 'nullable',
+                'text' => 'nullable',
+                'enTitle' => 'nullable|max:255',
+                'enShort' => 'nullable',
+                'enText' => 'nullable',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:4096'
             ]
         );
 
@@ -68,8 +68,6 @@ class NewsController extends Controller
             $f = $request->file('image');
             if($f->isValid())
             {
-                //$f->storeAs('img/news', $f->getClientOriginalName(), 'public');
-                //$post->image = 'img/news/'.$f->getClientOriginalName();
                 $path = Storage::disk('public')->put('img/news', $f);
                 $post->image = $path;
             }
@@ -117,13 +115,13 @@ class NewsController extends Controller
         $this->validate(
             $request,
             [
-                'ru_title' => 'required|max:255',
-                'ru_short' => 'nullable',
-                'ru_text' => 'nullable',
-                'en_title' => 'nullable|max:255',
-                'en_short' => 'nullable',
-                'en_text' => 'nullable',
-                'image' => 'nullable|max:255'
+                'title' => 'required|max:255',
+                'short' => 'nullable',
+                'text' => 'nullable',
+                'enTitle' => 'nullable|max:255',
+                'enShort' => 'nullable',
+                'enText' => 'nullable',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:4096'
             ]
         );
 

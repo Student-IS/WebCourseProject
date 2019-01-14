@@ -33,6 +33,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('realty/img/{image}', 'RealtyImageController@destroy')->name('admin.realty.image.delete');
 
         Route::get('about', 'AboutController@edit')->name('admin.staticContent.edit');
+        Route::put('about/{name}', 'AboutController@update')->name('admin.staticContent.update');
     });
 
     Route::middleware('hasRight:view_bookings')->group(function () {

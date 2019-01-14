@@ -42,16 +42,24 @@ class AboutController extends Controller
         {
             $data = StaticContent::where('page_name', $request->name)->firstOrFail();
         }
-        return view('admin.staticContent', ['content' => $data]);
+        return view('admin.staticContent', ['content' => $data, 'pagename' => $request->name]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, string $name)
     {
-        //
-        if ($request->has('name'))
-        {
-            $data = StaticContent::where('page_name', $request->name)->firstOrFail();
-        }
-        return view('admin.staticContent', ['content' => $data, 'updated' => true]);
+        $this->validate(
+            $request,
+            [
+                'text' => 'required',
+                'enText' => 'nullable'
+            ]
+        );
+
+        $data = StaticContent::where('page_name', $name)->firstOrFail();
+        $data->ru_content = $request->text;
+        $data->en_content = $request->enText;
+        $data->save();
+
+        return view('admin.staticContent', ['content' => $data, 'updated' => true, 'pagename' => $name]);
     }
 }

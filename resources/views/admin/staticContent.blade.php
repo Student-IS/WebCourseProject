@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<h3>Редактирование содержимого справочного раздела</h3>
+<h3>Редактирование содержимого справочного раздела "@lang("static.{$pagename}")"</h3>
 <div class="row no-gutters">
     <div class="col">
-        <form id="staticContentUpd" action="/admin/about/{name}" method="POST">
+        <form id="staticContentUpd" action="/admin/about/{{$pagename}}" method="POST">
             @csrf @method('PUT')
             <div class="form-group">
                 <label for="text">Текст страницы</label>
@@ -16,6 +16,14 @@
         </form>
     </div>
 </div>
+@isset($updated)
+    <div class="alert alert-success alert-dismissible" role="alert">
+        Информация обновлена
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endisset
 <div class="row no-gutters justify-content-center">
     <div class="btn-group mt-3">
         <a href="/admin" class="btn btn-outline-primary"> << Назад к разделам</a>

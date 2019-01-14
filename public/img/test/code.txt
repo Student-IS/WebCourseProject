@@ -16,27 +16,42 @@
 # RealtyObjectController.php, store()
 
 $validator = Validator::make($request->all(),
-            [
-                'name' => 'required|max:255',
-                'address' => 'required|max:255',
-                'cost' => 'required|numeric',
-                'type' => 'required',
-                'areaTotal' => 'required|numeric',
-                'areaResidential' => 'nullable|numeric|lte:areaTotal',
-                'areaKitchen' => 'nullable|numeric|lte:areaTotal',
-                'floors' => 'required|integer',
-                'floor' => 'nullable|integer|lte:floors',
-                'text' => 'required',
-                'enText' => 'nullable',
-                'phone' => 'required|digits_between:8,11',
-                'email' => 'nullable|email',
-                'images' => 'nullable',
-                'image.*' => 'image|mimes:jpg,jpeg,png,gif,svg|max:4096'
-            ]
-            );
-        if ($validator->fails())
-        {
-            return redirect()->back()
-                ->withErrors($validator->errors())
-                ->withInput();
-        }
+	[
+		'name' => 'required|max:255',
+		'address' => 'required|max:255',
+		'cost' => 'required|numeric',
+		'type' => 'required',
+		'areaTotal' => 'required|numeric',
+		'areaResidential' => 'nullable|numeric|lte:areaTotal',
+		'areaKitchen' => 'nullable|numeric|lte:areaTotal',
+		'floors' => 'required|integer',
+		'floor' => 'nullable|integer|lte:floors',
+		'text' => 'required',
+		'enText' => 'nullable',
+		'phone' => 'required|digits_between:8,11',
+		'email' => 'nullable|email',
+		'images' => 'nullable',
+		'image.*' => 'image|mimes:jpg,jpeg,png,gif,svg|max:4096'
+	]
+);
+if ($validator->fails())
+{
+	return redirect()->back()
+		->withErrors($validator->errors())
+		->withInput();
+}
+
+# NewsController.php, store()
+
+$f->storeAs('img/news', $f->getClientOriginalName(), 'public');
+$post->image = 'img/news/'.$f->getClientOriginalName();
+
+История компании начинается в 2018 году, когда автору данного интернет-магазина в университете дали задание на курсовой проект по дисциплине "Web-технологии". Таким образом, появилась первая версия сайта, которая была похожа на глянцевый журнал, который можно полистать и закрыть.
+Всё изменилось с появлением на сайте системы учётных записей, позволившей удобным образом управлять содержимым сайта и делать заказы.
+Мы надеемся, что Вам будет удобно пользоваться этим сайтом!
+
+На нашем сайте Вы можете просматривать каталог недвижимости в трёх категориях, а также оставлять заказы на покупку объекта (для зарегистрированных пользователей). При регистрации учётная запись привязывается к адресу электронной почты, с помощью которой наши менеджеры свяжутся с Вами при появлении заявки на покупку объекта недвижимости.
+
+Награда "Лучший интернет-магазин недвижимости в декабре 2018 в СевГУ", награда "Лучший интернет-магазин недвижимости декабря 2018 в СевГУ на языке PHP", награда "Лучший интернет-магазин недвижимости декабря 2018 в СевГУ на языке PHP с использованием фреймворка Laravel". Примечание: все награды являются вымышленными.
+
+Приятели автора данного сайта находят дизайн пользовательского интерфейса весьма неплохим, также им нравится возможность удобной навигации между разделами и понятное расположение управляющих кнопок и ссылок интерфейса. Интерфейс пользователя и его удобство - это первое, на что обращают внимание посетители. Именно поэтому очень важно позаботиться о его удобстве.
